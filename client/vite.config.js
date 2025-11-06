@@ -1,26 +1,13 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 
-// Detect environment (local or production)
-const isProduction = process.env.NODE_ENV === 'production'
-
-// If deployed → use Render backend URL
-// If local → use localhost:3001
-const backendURL = isProduction
-  ? 'https://infohubchallenge.onrender.com/'
-  : 'http://localhost:3001'
+// Render backend URL
+const backendURL = 'https://infohubchallenge.onrender.com'
 
 export default defineConfig({
   plugins: [react()],
   server: {
-    port: 3000,
-    proxy: {
-      '/api': {
-        target: backendURL,
-        changeOrigin: true,
-        secure: false,
-      }
-    }
+    port: 3000, // dev server port (won't matter on Render)
   },
   build: {
     outDir: 'dist',
